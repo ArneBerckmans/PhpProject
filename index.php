@@ -1,5 +1,15 @@
 <?php
 
+spl_autoload_register(function($class){
+    include_once ("classes/" . $class . ".class.php");
+});
+
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('location: logout.php');
+}
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -14,7 +24,7 @@
     <nav>
         <a href="#">logo</a>
         <a href="#">profile</a>
-        <a href="#">logout</a>
+        <a href="logout.php">logout</a>
     </nav>
     <main>
         
