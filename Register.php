@@ -9,14 +9,18 @@ try{
 
 if (!empty($_POST)){
 
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $passwordConfirm = $_POST['confirmPass'];
 
-if(!empty($email) && !empty($username) && !empty($password) && !empty($passwordConfirm) && $password == $passwordConfirm){
+if(!empty($firstname) && !empty($lastname) && !empty($email) && !empty($username) && !empty($password) && !empty($passwordConfirm) && $password == $passwordConfirm){
     $user = new User();
 
+    $user->setFirstname($_POST['firstname']);
+    $user->setLastname($_POST['lastname']);
     $user->setEmail($_POST['email']);
     $user->setPassword($_POST['password']);
     $user->setUsername($_POST['username']);
@@ -55,6 +59,17 @@ catch(Exception $e){
 <body>
     <div class="register">
     <form class="mainForm" action="" method="post">
+
+        <div>
+            <label for="firstname">Firstname</label>
+            <input value="" type="text" class="form form__firstname" id="firstname" name="firstname" placeholder="firstname">
+        </div>
+
+        <div>
+            <label for="lastname">Lastname</label>
+            <input value="" type="text" class="form form__lastname" id="lastname" name="lastname" placeholder="lastname">
+        </div>
+
         <div>
             <label for="username">Username</label>
             <input value="" type="text" class="form form__username" id="username" name="username" placeholder="username">
