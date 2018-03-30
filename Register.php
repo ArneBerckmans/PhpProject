@@ -1,8 +1,8 @@
 <?php
 
 spl_autoload_register(function($class){
-        include_once ("classes/" . $class . ".class.php");
-    });
+    include_once ("classes/" . $class . ".class.php");
+});
 
 try{
 
@@ -77,6 +77,7 @@ catch(Exception $e){
 
         <button class="buttonReg" type="submit">Sign Up</button>
 
+        <p>Already have an account? <a href="login.php">Login here!</a></p>
     </form>
 
     <?php
