@@ -4,9 +4,43 @@ include_once ("Db.class.php");
 
 class User{
 
-    private $username;
-    private $password;
-    private $email;
+    protected $username;
+    protected $password;
+    protected $email;
+    protected $firstname;
+    protected $lastname;
+
+    /**
+     * @return mixed
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param mixed $firstname
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param mixed $lastname
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
 
     /**
      * @return mixed
@@ -88,10 +122,11 @@ class User{
         }
 
         else{
-            $statement = $conn->prepare("insert into users (username, password, email) values (:username, :password, :email)");
+            $statement = $conn->prepare("insert into users (firstname, lastname, username, password, email) values (:firstname, :lastname, :username, :password, :email)");
 
             $hash = password_hash($this->password, PASSWORD_BCRYPT, $options);
-
+            $statement->bindParam(":firstname", $this->firstname);
+            $statement->bindParam(":lastname", $this->lastname);
             $statement->bindParam(":username", $this->username);
             $statement->bindParam(":email", $this->email);
             $statement->bindParam(":password", $hash);
@@ -99,6 +134,7 @@ class User{
             $statement->execute();
 
             session_start();
+            $_SESSION['user'] = $this->getUsername();
             header("Location: index.php");
         }
 
