@@ -17,7 +17,11 @@
         <a href="#">logout</a>
     </nav>
     <main>
-        
+        <div class="post">
+            <img src="#" alt="photo user">
+            <img src="#" alt="photo post">
+            <p class="description"></p>
+        </div>
     </main>
 </body>
 </html>
