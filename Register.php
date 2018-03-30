@@ -48,29 +48,31 @@ catch(Exception $e){
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Register</title>
 </head>
 <body>
-
-    <form class="" action="" method="post">
+    <div class="register">
+    <form class="mainForm" action="" method="post">
         <div>
             <label for="username">Username</label>
-            <input value="" type="text" id="username" name="username">
+            <input value="" type="text" class="form form__username" id="username" name="username" placeholder="username">
         </div>
 
         <div>
             <label for="email">Email</label>
-            <input value="" type="email" id="email" name="email">
+            <input value="" type="email" class="form form__email" id="email" name="email" placeholder="email">
         </div>
 
         <div>
             <label for="password">password</label>
-            <input value="" type="password" id="password" name="password">
+            <input value="" type="password" class="form form__password" id="password" name="password" placeholder="password">
         </div>
 
         <div>
             <label for="confirmPass">Confirm password</label>
-            <input value="" type="password" id="confirmPass" name="confirmPass">
+            <input value="" type="password" class="form form__confirmPass" id="confirmPass" name="confirmPass" placeholder="confirm password">
         </div>
 
         <button class="buttonReg" type="submit">Sign Up</button>
@@ -83,6 +85,6 @@ catch(Exception $e){
         <div class="error"><?php echo $error ?></div>
 
     <?php endif; ?>
-
+    </div>
 </body>
 </html>
