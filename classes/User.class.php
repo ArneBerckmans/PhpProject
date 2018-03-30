@@ -37,6 +37,10 @@ class User{
      */
     public function setPassword($password)
     {
+        if (strlen($password)<6) {
+            throw new Exception('Password must be at least 6 characters long!');
+        }
+
         $this->password = $password;
     }
 
