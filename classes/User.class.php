@@ -141,6 +141,23 @@ class User{
 
 
     }
+
+    public function Login(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("select * from users where username = :username");
+        $statement->bindValue(':username', $this->username);
+        $statement->execute();
+
+        $res = $statement->fetch();
+        if (password_verify($this->getPassword(), $res['password'])) {
+            session_start();
+            $_SESSION['user'] = $this->getUsername();
+            header("Location: index.php");
+        } else {
+            throw new Exception('Invalid username or password');
+        }
+    }
 }
 
 

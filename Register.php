@@ -90,7 +90,7 @@ catch(Exception $e){
             <input value="" type="password" class="form form__confirmPass" id="confirmPass" name="confirmPass" placeholder="confirm password">
         </div>
 
-        <button class="buttonReg" type="submit">Sign Up</button>
+        <button class="buttonForm" type="submit">Sign Up</button>
 
         <p>Already have an account? <a href="login.php">Login here!</a></p>
     </form>
