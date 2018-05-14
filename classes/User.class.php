@@ -9,6 +9,23 @@ class User{
     protected $email;
     protected $firstname;
     protected $lastname;
+    protected $imageUrl = "http://earthharmonyfestival.org/view/modules/imgoing/img/editor/empty-profile.jpg";
+
+    /**
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param string $imageUrl
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+    }
 
     /**
      * @return mixed
@@ -157,6 +174,54 @@ class User{
         } else {
             throw new Exception('Invalid username or password');
         }
+    }
+
+    public function getProfile(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("SELECT * FROM users WHERE username = :username;");
+        $statement->bindValue(':username', $this->username);
+        $statement->execute();
+        return $result = $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateProfile($oldEmail){
+        $conn = Db::getInstance();
+
+        if (isset($this->password)) {
+            $options = [
+                'cost' => 12
+            ];
+
+            $hashpassword = password_hash($this->getPassword(), PASSWORD_DEFAULT, $options);
+
+            $update = $conn ->prepare("UPDATE users SET username = :username, firstname = :firstname, lastname = :lastname,password = :password, email = :email WHERE email = :oldEmail");
+            $update->bindValue(':firstname', $this->getFirstName());
+            $update->bindValue(':lastname', $this->getLastName());
+            $update->bindValue(':username', $this->getUsername());
+            $update->bindValue(':password', $hashpassword);
+            $update->bindValue(':email', $this->getEmail());
+            $update->bindValue(':oldEmail', $oldEmail);
+        }else {
+            $update = $conn->prepare("UPDATE user SET username = :username, firstname = :firstname, lastname = :lastname, email = :email WHERE email = :oldEmail");
+            $update->bindValue(':firstname', $this->getFirstName());
+            $update->bindValue(':lastname', $this->getLastName());
+            $update->bindValue(':username', $this->getUsername());
+            $update->bindValue(':email', $this->getEmail());
+            $update->bindValue(':oldEmail', $oldEmail);
+        }
+
+        return $update->execute();
+
+    }
+
+    public function changePicture(){
+        $conn = Db::getInstance();
+
+        $update = $conn->prepare("UPDATE users SET imageUrl = :imageUrl WHERE email = :email");
+        $update->bindValue(':imageUrl', $this->imageUrl);
+        $update->bindValue(':email', $this->email);
+        return $update->execute();
     }
 }
 
